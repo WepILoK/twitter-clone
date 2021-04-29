@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {ReactElement, useState} from "react";
 import {Button, makeStyles, Typography} from "@material-ui/core";
 import TwitterIcon from '@material-ui/icons/Twitter';
 import SearchIcon from '@material-ui/icons/Search';
@@ -82,7 +82,7 @@ export const useStylesSignIn = makeStyles((theme) => ({
     }
 }))
 
-export const SignIn = () => {
+export const SignIn: React.FC = (): ReactElement => {
     const classes = useStylesSignIn()
     const [visibleModal, setVisibleModal] = useState<'signIn' | 'signUp'>()
 
