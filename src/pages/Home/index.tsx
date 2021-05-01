@@ -1,4 +1,4 @@
-import React, {ReactElement} from "react";
+import React, {ReactElement, useEffect} from "react";
 import {
     Container,
     Grid,
@@ -20,11 +20,21 @@ import Button from '@material-ui/core/Button/Button';
 import {AddTweetForm} from "../../components/AddTweetForm";
 import {useHomeStyles} from "./theme";
 import {SearchTextField} from "../../components/SearchTextField";
-
+import {useDispatch, useSelector} from "react-redux";
+import {fetchTweets} from "../../store/ducks/tweets/actionCreators";
+import {selectIsTweetsLoading, selectTweetsItems} from "../../store/ducks/tweets/selectors";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 
 export const Home: React.FC = (): ReactElement => {
     const classes = useHomeStyles()
+    const dispatch = useDispatch()
+    const tweets = useSelector(selectTweetsItems)
+    const isLoading = useSelector(selectIsTweetsLoading)
+    console.log(isLoading)
+    useEffect(() => {
+        dispatch(fetchTweets())
+    }, [dispatch])
 
     return (
         <Container className={classes.wrapper} maxWidth='lg'>
@@ -43,16 +53,16 @@ export const Home: React.FC = (): ReactElement => {
                             </div>
                             <div className={classes.addFormBottomLine}/>
                         </Paper>
-                        {
-                            [...new Array(20)
-                                .fill(<Tweet classes={classes}
-                                             text={'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda culpa dignissimos eaque, enim ipsam laboriosam laborum nihil odio officiis quia reprehenderit sequi tempora voluptatibus voluptatum.'}
-                                             user={{
-                                                 fullName: 'Full Name',
-                                                 userName: 'UserName',
-                                                 avatarUrl: 'https://cdn.dribbble.com/users/112117/screenshots/3792149/avatar-dribbble.png',
-                                             }}/>)]
-                        }
+                        {isLoading
+                            ? <div className={classes.tweetsCentered}>
+                                <CircularProgress/>
+                            </div>
+                            : tweets.map(tweet =>
+                                <Tweet classes={classes}
+                                       key={tweet._id}
+                                       text={tweet.text}
+                                       user={tweet.user}/>
+                            )}
                     </Paper>
                 </Grid>
                 <Grid sm={3} md={3} item>
