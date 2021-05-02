@@ -15,6 +15,7 @@ import Typography from "@material-ui/core/Typography";
 import {useHomeStyles} from "../pages/Home/theme";
 import {AddTweetForm} from "./AddTweetForm";
 import {ModalBlock} from "./ModalBlock";
+import {Link} from "react-router-dom";
 
 interface SideMenuProps {
     classes: ReturnType<typeof useHomeStyles>
@@ -23,13 +24,6 @@ interface SideMenuProps {
 export const SideMenu: React.FC<SideMenuProps> = ({classes}): ReactElement => {
     const [visibleAddTweet, setVisibleAddTweet] = useState<boolean>(false)
 
-    const handleClickOpenAddTweet = () => {
-        setVisibleAddTweet(true)
-    }
-    const onCloseAddTweet = () => {
-        setVisibleAddTweet(false)
-    }
-
     const toggleAddTweet = () => {
         setVisibleAddTweet(!visibleAddTweet)
     }
@@ -37,9 +31,11 @@ export const SideMenu: React.FC<SideMenuProps> = ({classes}): ReactElement => {
     return (
             <ul className={classes.sideMenuList}>
                 <li className={classes.sideMenuListItem}>
-                    <IconButton className={classes.logo} aria-label='' color='primary'>
-                        <TwitterIcon className={classes.logoIcon}/>
-                    </IconButton>
+                  <Link to='/home'>
+                      <IconButton className={classes.logo} aria-label='' color='primary'>
+                          <TwitterIcon className={classes.logoIcon}/>
+                      </IconButton>
+                  </Link>
                 </li>
                 <li className={classes.sideMenuListItem}>
                     <div>

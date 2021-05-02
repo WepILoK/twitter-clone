@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, {ReactElement} from "react";
 import classNames from "classnames";
 import {Avatar, IconButton, Paper, Typography} from "@material-ui/core";
 import CommentIcon from "@material-ui/icons/ModeCommentOutlined";
@@ -7,8 +7,10 @@ import LikeIcon from "@material-ui/icons/FavoriteBorderOutlined";
 import ShareIcon from "@material-ui/icons/ReplyOutlined";
 
 import {useHomeStyles} from "../pages/Home/theme";
+import {Link} from "react-router-dom";
 
 interface TweetProps {
+    _id: string
     classes: ReturnType<typeof useHomeStyles>
     text: string
     user: {
@@ -17,12 +19,13 @@ interface TweetProps {
         avatarUrl: string
     }
 }
-export const Tweet: React.FC<TweetProps> = ({classes, user, text}): ReactElement => {
-    return (
-        <Paper className={classNames(classes.tweet, classes.tweetsHeader)} variant='outlined'>
 
-                    <Avatar className={classes.tweetAvatar} alt={`Аватар пользователя ${user.fullName}`}
-                            src={user.avatarUrl}/>
+export const Tweet: React.FC<TweetProps> = ({classes, user, text, _id}): ReactElement => {
+    return (
+        <Link to={`/home/tweet/${_id}`} className={classes.tweetWrapper}>
+            <Paper className={classNames(classes.tweet, classes.tweetsHeader)} variant='outlined'>
+                <Avatar className={classes.tweetAvatar} alt={`Аватар пользователя ${user.fullName}`}
+                        src={user.avatarUrl}/>
                 <div>
                     <Typography>
                         <b>{user.fullName}</b>&nbsp;
@@ -36,28 +39,28 @@ export const Tweet: React.FC<TweetProps> = ({classes, user, text}): ReactElement
                     <div className={classes.tweetFooter}>
                         <div>
                             <IconButton>
-                                <CommentIcon style={{ fontSize: 20}}/>
+                                <CommentIcon style={{fontSize: 20}}/>
                             </IconButton>
                             <span>1</span>
                         </div>
                         <div>
                             <IconButton>
-                                <RepostIcon style={{ fontSize: 20}}/>
+                                <RepostIcon style={{fontSize: 20}}/>
                             </IconButton>
                         </div>
                         <div>
                             <IconButton>
-                                <LikeIcon style={{ fontSize: 20}}/>
+                                <LikeIcon style={{fontSize: 20}}/>
                             </IconButton>
                         </div>
                         <div>
                             <IconButton>
-                                <ShareIcon style={{ fontSize: 20}}/>
+                                <ShareIcon style={{fontSize: 20}}/>
                             </IconButton>
                         </div>
                     </div>
                 </div>
-
-        </Paper>
+            </Paper>
+        </Link>
     )
 }

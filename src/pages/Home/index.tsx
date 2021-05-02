@@ -24,6 +24,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetchTweets} from "../../store/ducks/tweets/actionCreators";
 import {selectIsTweetsLoading, selectTweetsItems} from "../../store/ducks/tweets/selectors";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import {fetchTags} from "../../store/ducks/tags/actionCreators";
+import {Tags} from "../../components/Tags";
+import { Route } from "react-router-dom";
+import {BackButton} from "../../components/BackButton";
+import {FullTweet} from "./components/FullTweet";
 
 
 export const Home: React.FC = (): ReactElement => {
@@ -31,9 +36,10 @@ export const Home: React.FC = (): ReactElement => {
     const dispatch = useDispatch()
     const tweets = useSelector(selectTweetsItems)
     const isLoading = useSelector(selectIsTweetsLoading)
-    console.log(isLoading)
+
     useEffect(() => {
         dispatch(fetchTweets())
+        dispatch(fetchTags())
     }, [dispatch])
 
     return (
@@ -45,24 +51,38 @@ export const Home: React.FC = (): ReactElement => {
                 <Grid sm={8} md={6} item>
                     <Paper className={classes.tweetsWrapper} variant='outlined'>
                         <Paper className={classes.tweetsHeader} variant='outlined'>
-                            <Typography variant='h6'>Главная</Typography>
+                            <Route path='/home/:any'>
+                                <BackButton classes={classes}/>
+                            </Route>
+                            <Route path={['/home', '/home/search']} exact>
+                                <Typography variant='h6'>Твиты</Typography>
+                            </Route>
+                            <Route path='/home/tweet'>
+                                <Typography variant='h6'>Твитнуть</Typography>
+                            </Route>
                         </Paper>
-                        <Paper>
-                            <div className={classes.addForm}>
-                                <AddTweetForm classes={classes}/>
-                            </div>
-                            <div className={classes.addFormBottomLine}/>
-                        </Paper>
-                        {isLoading
-                            ? <div className={classes.tweetsCentered}>
-                                <CircularProgress/>
-                            </div>
-                            : tweets.map(tweet =>
-                                <Tweet classes={classes}
-                                       key={tweet._id}
-                                       text={tweet.text}
-                                       user={tweet.user}/>
-                            )}
+
+                        <Route path={['/home', '/home/search']} exact>
+                            <Paper>
+                                <div className={classes.addForm}>
+                                    <AddTweetForm classes={classes}/>
+                                </div>
+                                <div className={classes.addFormBottomLine}/>
+                            </Paper>
+                        </Route>
+
+                        <Route path='/home' exact>
+                            {isLoading
+                                ? <div className={classes.tweetsCentered}>
+                                    <CircularProgress/>
+                                </div>
+                                : tweets.map(tweet =>
+                                    <Tweet key={tweet._id} {...tweet} classes={classes}/>
+                                )}
+                        </Route>
+
+                        <Route path='/home/tweet/:id' component={FullTweet} exact/>
+
                     </Paper>
                 </Grid>
                 <Grid sm={3} md={3} item>
@@ -78,68 +98,32 @@ export const Home: React.FC = (): ReactElement => {
                                 ),
                             }}
                             fullWidth/>
+                        <Tags classes={classes}/>
                         <Paper className={classes.rightSideBlock}>
-                            <Paper className={classes.rightSideBlockHeader} variant='outlined'>
-                                <b>Актуальные темы</b>
-                            </Paper>
-                            <List>
-                                <ListItem className={classes.rightSideBlockItem}>
-                                    <ListItemText
-                                        primary='Москва'
-                                        secondary={
-                                            <Typography component='span' variant='body2' color='textSecondary'>
-                                                Твитов: 162 110
-                                            </Typography>
-                                        }/>
-                                </ListItem>
-                                <Divider component='li'/>
-                                <ListItem className={classes.rightSideBlockItem}>
-                                    <ListItemText
-                                        primary='#короновирус'
-                                        secondary={
-                                            <Typography component='span' variant='body2' color='textSecondary'>
-                                                Твитов: 174 158
-                                            </Typography>
-                                        }/>
-                                </ListItem>
-                                <Divider component='li'/>
-                                <ListItem className={classes.rightSideBlockItem}>
-                                    <ListItemText
-                                        primary='Украина'
-                                        secondary={
-                                            <Typography component='span' variant='body2' color='textSecondary'>
-                                                Твитов: 24 18
-                                            </Typography>
-                                        }/>
-                                </ListItem>
-                                <Divider component='li'/>
-                            </List>
+                        <Paper className={classes.rightSideBlockHeader} variant='outlined'>
+                            <b>Кого читать</b>
                         </Paper>
-                        <Paper className={classes.rightSideBlock}>
-                            <Paper className={classes.rightSideBlockHeader} variant='outlined'>
-                                <b>Кого читать</b>
-                            </Paper>
-                            <List>
-                                <ListItem className={classes.rightSideBlockItem}>
-                                    <ListItemAvatar>
-                                        <Avatar
-                                            alt='Аватар рекомендованного пользователя'
-                                            src='https://yt3.ggpht.com/a/AATXAJzgimnbEJL4uu-O6gj1s1RdJM69v2Lsb4JmnQ0chQ=s900-c-k-c0xffffffff-no-rj-mo'/>
-                                    </ListItemAvatar>
-                                    <ListItemText
-                                        primary='RecommendedUser'
-                                        secondary={
-                                            <Typography component='span' variant='body2'>
-                                                @RecommendedUser
-                                            </Typography>
-                                        }/>
-                                    <Button color='primary'>
-                                        <PersonAddIcon/>
-                                    </Button>
-                                </ListItem>
-                                <Divider component='li'/>
-                            </List>
-                        </Paper>
+                        <List>
+                            <ListItem className={classes.rightSideBlockItem}>
+                                <ListItemAvatar>
+                                    <Avatar
+                                        alt='Аватар рекомендованного пользователя'
+                                        src='https://yt3.ggpht.com/a/AATXAJzgimnbEJL4uu-O6gj1s1RdJM69v2Lsb4JmnQ0chQ=s900-c-k-c0xffffffff-no-rj-mo'/>
+                                </ListItemAvatar>
+                                <ListItemText
+                                    primary='RecommendedUser'
+                                    secondary={
+                                        <Typography component='span' variant='body2'>
+                                            @RecommendedUser
+                                        </Typography>
+                                    }/>
+                                <Button color='primary'>
+                                    <PersonAddIcon/>
+                                </Button>
+                            </ListItem>
+                            <Divider component='li'/>
+                        </List>
+                    </Paper>
                     </div>
                 </Grid>
             </Grid>

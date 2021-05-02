@@ -11,7 +11,7 @@ import App from './App';
 import {store} from "./store/store";
 
 ReactDOM.render(
-    <React.StrictMode>
+    // <React.StrictMode>
         <ThemeProvider theme={theme}>
             <CssBaseline/>
             <Router>
@@ -19,7 +19,7 @@ ReactDOM.render(
                     <App />
                 </Provider>
             </Router>
-        </ThemeProvider>
-    </React.StrictMode>,
+        </ThemeProvider>,
+    // </React.StrictMode>,
     document.getElementById('root')
 );
