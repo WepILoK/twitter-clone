@@ -1,11 +1,16 @@
 import React, {ReactElement, useEffect} from "react";
 import {useParams} from "react-router-dom";
-import {Tweet} from "../../../components/Tweet";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchTweetData, setTweetData} from "../../../store/ducks/tweet/actionCreators";
 import {selectIsTweetLoading, selectTweetData} from "../../../store/ducks/tweet/selectors";
 import {useHomeStyles} from "../theme";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import classNames from "classnames";
+import {Avatar, IconButton, Paper, Typography} from "@material-ui/core";
+import CommentIcon from "@material-ui/icons/ModeCommentOutlined";
+import RepostIcon from "@material-ui/icons/Repeat";
+import LikeIcon from "@material-ui/icons/FavoriteBorderOutlined";
+import ShareIcon from "@material-ui/icons/ReplyOutlined";
 
 export const FullTweet: React.FC = (): ReactElement | null => {
     const dispatch = useDispatch()
@@ -29,8 +34,26 @@ export const FullTweet: React.FC = (): ReactElement | null => {
             </div>
         )
     }
-    if(tweetData) {
-        return <Tweet classes={classes} {...tweetData}/>
+    if (tweetData) {
+        return (
+            <Paper className={classes.fullTweet}>
+                <div className={classNames(classes.tweetsHeaderUser)}>
+                    <Avatar className={classes.tweetAvatar} alt={`Аватар пользователя ${tweetData.user.fullName}`}
+                            src={tweetData.user.avatarUrl}/>
+                    <Typography>
+                        <b>{tweetData.user.fullName}</b>&nbsp;
+                        <div>
+                            <span className={classes.tweetUserName}>@{tweetData.user.userName}</span>&nbsp;
+                            <span className={classes.tweetUserName}>-</span>&nbsp;
+                            <span className={classes.tweetUserName}>1 ч</span>
+                        </div>
+                    </Typography>
+                </div>
+                <Typography className={classes.fullTweetText} gutterBottom>
+                    {tweetData.text}
+                </Typography>
+            </Paper>
+        )
     }
     return null
 }

@@ -3,11 +3,16 @@ import Avatar from "@material-ui/core/Avatar/Avatar";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize/TextareaAutosize";
 import classNames from "classnames";
 import {IconButton} from "@material-ui/core";
+import Alert from '@material-ui/lab/Alert';
 import ImageIcon from "@material-ui/icons/ImageOutlined";
 import EmojiIcon from "@material-ui/icons/SentimentSatisfiedOutlined";
 import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress";
 import Button from "@material-ui/core/Button/Button";
 import {useHomeStyles} from "../pages/Home/theme";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchAddTweet} from "../store/ducks/tweets/actionCreators";
+import {selectAddForm} from "../store/ducks/tweets/selectors";
+import {AddFormState} from "../store/ducks/tweets/contracts/state";
 
 interface AddTweetFormProps {
     classes: ReturnType<typeof useHomeStyles>
@@ -16,8 +21,10 @@ interface AddTweetFormProps {
 
 export const AddTweetForm: React.FC<AddTweetFormProps> = ({classes, maxRows}): ReactElement => {
     const [text, setText] = useState<string>('')
-
+    const dispatch = useDispatch()
+    const addFormState = useSelector(selectAddForm)
     const textLimitPercent = Math.round((text.length / 280) * 100)
+
 
     const handleChangeTextarea = (e: React.FormEvent<HTMLTextAreaElement>): void => {
         if (e.currentTarget) {
@@ -26,7 +33,7 @@ export const AddTweetForm: React.FC<AddTweetFormProps> = ({classes, maxRows}): R
     }
 
     const handleClickAddTweet = (): void => {
-
+        dispatch(fetchAddTweet(text))
         setText('')
     }
 
@@ -71,12 +78,19 @@ export const AddTweetForm: React.FC<AddTweetFormProps> = ({classes, maxRows}): R
                             </div>
                         </>
                     )}
-                    <Button onClick={handleClickAddTweet} disabled={text.length >= 280} color='primary'
-                            variant='contained'>
-                        Твитнуть
+                    <Button
+                        onClick={handleClickAddTweet}
+                        disabled={addFormState === AddFormState.LOADING || !text || text.length >= 280}
+                        color='primary'
+                        variant='contained'>
+                        {addFormState === AddFormState.LOADING
+                            ? <CircularProgress color='inherit' size={20}/>
+                            : 'Твитнуть'}
                     </Button>
                 </div>
             </div>
+            {addFormState === AddFormState.ERROR &&
+            <Alert severity='error'>Произошла ошибка при добавлении твита 😥</Alert>}
         </div>
 
     )
