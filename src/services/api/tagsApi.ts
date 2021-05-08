@@ -1,9 +1,10 @@
-import axios from "axios";
+import {axios} from "../../core/axios";
 import {TagsState} from "../../store/ducks/tags/contracts/state";
 
 export const TagsApi = {
-    fetchTags(): Promise<TagsState['items']> {
-        return axios.get('/tags').then(({data})=> data)
+    async fetchTags(): Promise<TagsState['items']> {
+        const {data} = await axios.get('/tags')
+        return data.data
     },
 
 }

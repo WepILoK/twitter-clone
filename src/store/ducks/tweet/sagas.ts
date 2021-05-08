@@ -7,8 +7,8 @@ import {IFetchTweetDataAction, TweetActionsType} from "./contracts/actionTypes";
 
 export function* fetchTweetDataRequest({payload: tweetId}: IFetchTweetDataAction) {
     try {
-        const data: Tweet[] = yield call(TweetsApi.fetchTweetData, tweetId)
-            yield put(setTweetData(data[0]))
+        const data: Tweet = yield call(TweetsApi.fetchTweetData, tweetId)
+            yield put(setTweetData(data))
     } catch (error) {
         yield put(setTweetLoadingState(LoadingState.ERROR))
     }

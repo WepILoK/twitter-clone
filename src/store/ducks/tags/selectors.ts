@@ -1,6 +1,5 @@
 import {RootState} from "../../store";
 import {LoadingState, TagsState} from "./contracts/state";
-import {createSelector} from "reselect";
 
 export const selectTags = (state: RootState): TagsState => state.tags
 
@@ -13,5 +12,4 @@ export const selectIsTagsLoading = (state: RootState): boolean =>
 export const selectIsTagsLoaded = (state: RootState): boolean =>
     selectLoadingState(state) === LoadingState.LOADED
 
-
-export const selectTagsItems = createSelector(selectTags, tags => tags.items)
+export const selectTagsItems = (state: RootState) => selectTags(state).items

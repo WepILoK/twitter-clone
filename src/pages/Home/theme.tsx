@@ -100,6 +100,14 @@ export const useHomeStyles = makeStyles((theme: Theme) => ({
         height: theme.spacing(6.5),
         marginRight: 15,
     },
+    tweetHeader: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    },
+    tweetContent: {
+        flex: 1
+    },
     tweetsHeaderBackButton: {
         marginRight: 20,
     },
