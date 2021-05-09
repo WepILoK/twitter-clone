@@ -1,11 +1,12 @@
-import {AddFormState, LoadingState, Tweet, TweetsState} from "./contracts/state";
+import {AddFormStatus, Tweet, TweetsState} from "./contracts/state";
 import {
     IAddTweetAction,
-    IFetchAddTweetAction, IFetchTweetsAction, ISetAddFormStateAction,
+    IFetchAddTweetAction, IFetchTweetsAction, ISetAddFormStatusAction,
     ISetTweetsAction,
-    ISetTweetsLoadingStateAction,
+    ISetTweetsLoadingStatusAction,
     TweetsActionsType
 } from "./contracts/actionTypes";
+import {LoadingStatus} from "../../types";
 
 
 export const setTweets = (payload: TweetsState['items']): ISetTweetsAction => ({
@@ -23,13 +24,13 @@ export const fetchAddTweet = (payload: string): IFetchAddTweetAction => ({
     payload
 })
 
-export const setTweetsLoadingState = (payload: LoadingState): ISetTweetsLoadingStateAction => ({
-    type: TweetsActionsType.SET_LOADING_STATE,
+export const setTweetsLoadingStatus = (payload: LoadingStatus): ISetTweetsLoadingStatusAction => ({
+    type: TweetsActionsType.SET_LOADING_STATUS,
     payload
 })
 
-export const setAddFormState = (payload: AddFormState): ISetAddFormStateAction => ({
-    type: TweetsActionsType.SET_ADD_FORM_STATE,
+export const setAddFormStatus = (payload: AddFormStatus): ISetAddFormStatusAction => ({
+    type: TweetsActionsType.SET_ADD_FORM_STATUS,
     payload
 })
 
@@ -37,10 +38,3 @@ export const fetchTweets = (): IFetchTweetsAction => ({
     type: TweetsActionsType.FETCH_TWEETS,
 })
 
-export type TweetsAction =
-    ISetTweetsAction |
-    ISetTweetsLoadingStateAction |
-    IFetchTweetsAction |
-    IFetchAddTweetAction |
-    IAddTweetAction |
-    ISetAddFormStateAction

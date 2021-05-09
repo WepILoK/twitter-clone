@@ -1,41 +1,30 @@
 import {Action} from "redux";
-import {AddFormState, LoadingState, Tweet, TweetsState} from "./state";
+import {IUser} from "./state";
+import {LoadingStatus} from "../../../types";
+import {LoginFormProps} from "../../../../pages/SignIn/components/LoginModal";
 
-export enum TweetsActionsType {
-    SET_TWEETS = 'tweets/SET_TWEETS',
-    ADD_TWEET = 'tweets/ADD_TWEET',
-    FETCH_ADD_TWEET = 'tweets/FETCH_ADD_TWEET',
-    FETCH_TWEETS = 'tweets/FETCH_TWEETS',
-    SET_LOADING_STATE = 'tweets/SET_LOADING_STATE',
-    SET_ADD_FORM_STATE = 'tweets/SET_ADD_FORM_STATE',
+export enum UserActionsType {
+    SET_USER_DATA = 'user/SET_USER_DATA',
+    FETCH_SIGN_IN = 'user/FETCH_SIGN_IN',
+    SET_LOADING_STATUS = 'user/SET_LOADING_STATUS',
 
 }
 
-export interface ISetTweetsAction extends Action<TweetsActionsType> {
-    type: TweetsActionsType.SET_TWEETS
-    payload: TweetsState['items']
+export interface ISetUserDataAction extends Action<UserActionsType> {
+    type: UserActionsType.SET_USER_DATA
+    payload: IUser | undefined
 }
 
-export interface IFetchAddTweetAction extends Action<TweetsActionsType> {
-    type: TweetsActionsType.FETCH_ADD_TWEET
-    payload: string
+export interface IFetchSignInAction extends Action<UserActionsType> {
+    type: UserActionsType.FETCH_SIGN_IN
+    payload: LoginFormProps
 }
 
-export interface IAddTweetAction extends Action<TweetsActionsType> {
-    type: TweetsActionsType.ADD_TWEET
-    payload: Tweet
+export interface ISetUserLoadingStatusAction extends Action<UserActionsType> {
+    type: UserActionsType.SET_LOADING_STATUS
+    payload: LoadingStatus
 }
 
-export interface ISetTweetsLoadingStateAction extends Action<TweetsActionsType> {
-    type: TweetsActionsType.SET_LOADING_STATE
-    payload: LoadingState
-}
-
-export interface ISetAddFormStateAction extends Action<TweetsActionsType> {
-    type: TweetsActionsType.SET_ADD_FORM_STATE
-    payload: AddFormState
-}
-
-export interface IFetchTweetsAction extends Action<TweetsActionsType> {
-    type: TweetsActionsType.FETCH_TWEETS
-}
+export type UserAction = ISetUserDataAction
+    | ISetUserLoadingStatusAction
+    | IFetchSignInAction

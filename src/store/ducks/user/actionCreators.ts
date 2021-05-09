@@ -1,38 +1,25 @@
-import {LoadingState, TagsState} from "./contracts/state";
-import {Action} from "redux";
-
-export enum TagsActionsType {
-    SET_TAGS = 'tags/SET_TAGS',
-    FETCH_TAGS = 'tags/FETCH_TAGS',
-    SET_LOADING_STATE = 'tags/SET_LOADING_STATE',
-
-}
-
-export interface ISetTagsAction extends Action<TagsActionsType> {
-    type: TagsActionsType.SET_TAGS
-    payload: TagsState['items']
-}
-export interface ISetTagsLoadingStateAction extends Action<TagsActionsType> {
-    type: TagsActionsType.SET_LOADING_STATE
-    payload: LoadingState
-}
-
-export interface IFetchTagsAction extends Action<TagsActionsType> {
-    type: TagsActionsType.FETCH_TAGS
-}
+import {IUserState} from "./contracts/state";
+import {
+    IFetchSignInAction,
+    ISetUserDataAction,
+    ISetUserLoadingStatusAction,
+    UserActionsType
+} from "./contracts/actionTypes";
+import {LoginFormProps} from "../../../pages/SignIn/components/LoginModal";
 
 
-export const setTags = (payload: TagsState['items']): ISetTagsAction => ({
-    type: TagsActionsType.SET_TAGS,
-    payload
-})
-export const setTagsLoadingState = (payload: LoadingState): ISetTagsLoadingStateAction => ({
-    type: TagsActionsType.SET_LOADING_STATE,
+export const setUserData = (payload: IUserState['data']): ISetUserDataAction => ({
+    type: UserActionsType.SET_USER_DATA,
     payload
 })
 
-export const fetchTags = (): IFetchTagsAction => ({
-    type: TagsActionsType.FETCH_TAGS,
+export const fetchSignIn = (payload: LoginFormProps): IFetchSignInAction => ({
+    type: UserActionsType.FETCH_SIGN_IN,
+    payload
 })
 
-export type TagsAction = ISetTagsAction | ISetTagsLoadingStateAction | IFetchTagsAction
+export const setUserLoadingStatus = (payload: IUserState['status']): ISetUserLoadingStatusAction => ({
+    type: UserActionsType.SET_LOADING_STATUS,
+    payload
+})
+

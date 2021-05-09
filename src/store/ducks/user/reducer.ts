@@ -1,26 +1,26 @@
 import produce, {Draft} from "immer";
-import {LoadingState, TagsState} from "./contracts/state";
-import {TagsAction, TagsActionsType} from "./actionCreators";
+import {IUserState} from "./contracts/state";
+import {LoadingStatus} from "../../types";
+import {UserAction, UserActionsType} from "./contracts/actionTypes";
 
-const initialTagsState: TagsState = {
-    items: [],
-    loadingState: LoadingState.NEVER
+const initialUserState: IUserState = {
+    data: undefined,
+    status: LoadingStatus.NEVER
 }
 
-export const tagsReducer = produce((draft: Draft<TagsState>, action: TagsAction) => {
+export const userReducer = produce((draft: Draft<IUserState>, action: UserAction) => {
     switch (action.type) {
-        case TagsActionsType.SET_TAGS:
-            draft.items = action.payload
-            draft.loadingState = LoadingState.LOADED
+        case UserActionsType.SET_USER_DATA:
+            draft.data = action.payload
+            draft.status = LoadingStatus.SUCCESS
             break;
-        case TagsActionsType.FETCH_TAGS:
-            draft.items = []
-            draft.loadingState = LoadingState.LOADING
+        case UserActionsType.SET_LOADING_STATUS:
+            draft.status = action.payload
             break;
-        case TagsActionsType.SET_LOADING_STATE:
-            draft.loadingState = action.payload
+        case UserActionsType.FETCH_SIGN_IN:
+            draft.status = LoadingStatus.LOADING
             break;
         default:
             break;
     }
-}, initialTagsState)
+}, initialUserState)

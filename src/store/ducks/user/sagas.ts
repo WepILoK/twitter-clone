@@ -1,18 +1,21 @@
 import {call, put, takeLatest} from 'redux-saga/effects';
-import {setTags, setTagsLoadingState, TagsActionsType} from "./actionCreators";
-import {TagsApi} from "../../../services/api/tagsApi";
-import {LoadingState, TagsState} from "./contracts/state";
+import {IUser} from "./contracts/state";
+import {IFetchSignInAction, UserActionsType} from "./contracts/actionTypes";
+import {AuthApi} from "../../../services/api/authApi";
+import {setUserData, setUserLoadingStatus} from "./actionCreators";
+import {LoadingStatus} from "../../types";
 
-export function* fetchTagsRequest() {
+export function* fetchSignInRequest({payload}: IFetchSignInAction) {
     try {
-        const items: TagsState['items'] = yield call(TagsApi.fetchTags)
-        yield put(setTags(items))
+        const data: IUser = yield call(AuthApi.signIn, payload)
+        yield put(setUserData(data))
+        window.localStorage.setItem('token', data?.token)
     } catch (error) {
-        yield put(setTagsLoadingState(LoadingState.ERROR))
+        yield put(setUserLoadingStatus(LoadingStatus.ERROR))
     }
 
 }
 
-export function* tagsSaga() {
-    yield takeLatest(TagsActionsType.FETCH_TAGS, fetchTagsRequest)
+export function* userSaga() {
+    yield takeLatest(UserActionsType.FETCH_SIGN_IN, fetchSignInRequest)
 }

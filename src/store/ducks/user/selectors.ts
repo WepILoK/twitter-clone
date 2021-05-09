@@ -1,4 +1,10 @@
 import {RootState} from "../../store";
-import {LoadingState, TagsState} from "./contracts/state";
+import {IUserState} from "./contracts/state";
 
-export const selectTags = (state: RootState): TagsState => state.tags
+export const selectUserState = (state: RootState): IUserState => state.user
+
+export const selectUserData = (state: RootState): IUserState['data'] =>
+    selectUserState(state).data
+
+export const selectUserStatus = (state: RootState): IUserState['status'] =>
+    selectUserState(state).status

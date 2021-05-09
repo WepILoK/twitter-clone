@@ -12,7 +12,7 @@ import {useHomeStyles} from "../pages/Home/theme";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchAddTweet} from "../store/ducks/tweets/actionCreators";
 import {selectAddForm} from "../store/ducks/tweets/selectors";
-import {AddFormState} from "../store/ducks/tweets/contracts/state";
+import {AddFormStatus} from "../store/ducks/tweets/contracts/state";
 
 interface AddTweetFormProps {
     classes: ReturnType<typeof useHomeStyles>
@@ -80,16 +80,16 @@ export const AddTweetForm: React.FC<AddTweetFormProps> = ({classes, maxRows}): R
                     )}
                     <Button
                         onClick={handleClickAddTweet}
-                        disabled={addFormState === AddFormState.LOADING || !text || text.length >= 280}
+                        disabled={addFormState === AddFormStatus.LOADING || !text || text.length >= 280}
                         color='primary'
                         variant='contained'>
-                        {addFormState === AddFormState.LOADING
+                        {addFormState === AddFormStatus.LOADING
                             ? <CircularProgress color='inherit' size={20}/>
                             : 'Твитнуть'}
                     </Button>
                 </div>
             </div>
-            {addFormState === AddFormState.ERROR &&
+            {addFormState === AddFormStatus.ERROR &&
             <Alert severity='error'>Произошла ошибка при добавлении твита 😥</Alert>}
         </div>
 

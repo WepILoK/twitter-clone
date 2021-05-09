@@ -1,36 +1,36 @@
 import produce, {Draft} from "immer";
-import {AddFormState, LoadingState, TweetsState} from "./contracts/state";
-import {TweetsAction} from "./actionCreators";
-import {TweetsActionsType} from "./contracts/actionTypes";
+import {AddFormStatus, TweetsState} from "./contracts/state";
+import {TweetsAction, TweetsActionsType} from "./contracts/actionTypes";
+import {LoadingStatus} from "../../types";
 
 const initialTweetsState: TweetsState = {
     items: [],
-    loadingState: LoadingState.NEVER,
-    addFormState: AddFormState.NEVER
+    status: LoadingStatus.NEVER,
+    addFormStatus: AddFormStatus.NEVER
 }
 
 export const tweetsReducer = produce((draft: Draft<TweetsState>, action: TweetsAction) => {
     switch (action.type) {
         case TweetsActionsType.SET_TWEETS:
             draft.items = action.payload
-            draft.loadingState = LoadingState.LOADED
+            draft.status = LoadingStatus.LOADED
             break;
         case TweetsActionsType.ADD_TWEET:
             draft.items.splice(0, 0, action.payload)
-            draft.addFormState = AddFormState.NEVER
+            draft.addFormStatus = AddFormStatus.NEVER
             break;
         case TweetsActionsType.FETCH_ADD_TWEET:
-            draft.addFormState = AddFormState.LOADING
+            draft.addFormStatus = AddFormStatus.LOADING
             break;
-        case TweetsActionsType.SET_ADD_FORM_STATE:
-            draft.addFormState = action.payload
+        case TweetsActionsType.SET_ADD_FORM_STATUS:
+            draft.addFormStatus = action.payload
             break;
         case TweetsActionsType.FETCH_TWEETS:
             draft.items = []
-            draft.loadingState = LoadingState.LOADING
+            draft.status = LoadingStatus.LOADING
             break;
-        case TweetsActionsType.SET_LOADING_STATE:
-            draft.loadingState = action.payload
+        case TweetsActionsType.SET_LOADING_STATUS:
+            draft.status = action.payload
             break;
         default:
             break;

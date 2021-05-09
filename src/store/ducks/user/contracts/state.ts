@@ -1,3 +1,5 @@
+import {LoadingStatus} from "../../../types";
+
 export interface IUser {
     _id?: string
     email: string
@@ -6,11 +8,13 @@ export interface IUser {
     password: string
     confirmHash: string
     confirmed: boolean
+    token: string
     location?: string
     about?: string
     website?: string
 }
 
 export interface IUserState {
-    data: IUser
+    data: IUser | undefined
+    status: LoadingStatus
 }
