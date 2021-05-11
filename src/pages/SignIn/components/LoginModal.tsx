@@ -100,7 +100,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({open, onClose}): ReactEle
                                                 fullWidth
                                                 {...field}/>}
                                         />
-                                        <Button type='submit' variant='contained'
+                                        <Button disabled={loadingStatus === LoadingStatus.LOADING} type='submit' variant='contained'
                                                 color='primary' fullWidth>
                                             Войти
                                         </Button>

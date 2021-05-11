@@ -1,6 +1,6 @@
 import produce, {Draft} from "immer";
 import {AddFormStatus, TweetsState} from "./contracts/state";
-import {TweetsAction, TweetsActionsType} from "./contracts/actionTypes";
+import {TweetsActions, TweetsActionsType} from "./contracts/actionTypes";
 import {LoadingStatus} from "../../types";
 
 const initialTweetsState: TweetsState = {
@@ -9,7 +9,7 @@ const initialTweetsState: TweetsState = {
     addFormStatus: AddFormStatus.NEVER
 }
 
-export const tweetsReducer = produce((draft: Draft<TweetsState>, action: TweetsAction) => {
+export const tweetsReducer = produce((draft: Draft<TweetsState>, action: TweetsActions) => {
     switch (action.type) {
         case TweetsActionsType.SET_TWEETS:
             draft.items = action.payload

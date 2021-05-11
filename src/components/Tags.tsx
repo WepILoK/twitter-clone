@@ -1,5 +1,5 @@
-import React, {ReactElement} from "react";
-import {useSelector} from "react-redux";
+import React, {ReactElement, useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import List from "@material-ui/core/List/List";
 import ListItem from "@material-ui/core/ListItem/ListItem";
 import ListItemText from "@material-ui/core/ListItemText/ListItemText";
@@ -10,18 +10,25 @@ import Typography from "@material-ui/core/Typography";
 import {useHomeStyles} from "../pages/Home/theme";
 import {selectIsTagsLoaded, selectTagsItems} from "../store/ducks/tags/selectors";
 import {Link} from "react-router-dom";
+import {fetchTags} from "../store/ducks/tags/actionCreators";
 
 interface TagsProps {
     classes: ReturnType<typeof useHomeStyles>
 }
 
 export const Tags: React.FC<TagsProps> = ({classes}): ReactElement | null => {
+    const dispatch = useDispatch()
     const items = useSelector(selectTagsItems)
     const isLoaded = useSelector(selectIsTagsLoaded)
+
+    useEffect(() => {
+        dispatch(fetchTags())
+    }, [dispatch])
 
     if (!isLoaded) {
         return null
     }
+
     return (
         <Paper className={classes.rightSideBlock}>
             <Paper className={classes.rightSideBlockHeader} variant='outlined'>

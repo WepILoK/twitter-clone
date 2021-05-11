@@ -41,7 +41,7 @@ export interface IFetchTweetsAction extends Action<TweetsActionsType> {
     type: TweetsActionsType.FETCH_TWEETS
 }
 
-export type TweetsAction =
+export type TweetsActions =
     ISetTweetsAction |
     ISetTweetsLoadingStatusAction |
     IFetchTweetsAction |

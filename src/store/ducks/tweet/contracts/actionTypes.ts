@@ -24,7 +24,7 @@ export interface IFetchTweetDataAction extends Action<TweetActionsType> {
     payload: string
 }
 
-export type TweetAction =
+export type TweetActions =
     ISetTweetDataAction |
     ISetTweetLoadingStatusAction |
     IFetchTweetDataAction

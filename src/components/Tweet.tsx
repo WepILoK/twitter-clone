@@ -9,7 +9,6 @@ import ShareIcon from "@material-ui/icons/ReplyOutlined";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 import {useHomeStyles} from "../pages/Home/theme";
-import {Link} from "react-router-dom";
 import {formatDate} from "../utils/formatDate";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -30,12 +29,12 @@ export const Tweet: React.FC<TweetProps> = ({classes, user, text, _id, createdAt
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
     const open = Boolean(anchorEl)
     const history = useHistory()
-    
+
     const handleClickTweet = (e: React.MouseEvent<HTMLAnchorElement>): void => {
         e.preventDefault()
         history.push(`/home/tweet/${_id}`)
     }
-    
+
     const handleClick = (e: React.MouseEvent<HTMLElement>) => {
         e.stopPropagation()
         e.preventDefault()
@@ -46,13 +45,14 @@ export const Tweet: React.FC<TweetProps> = ({classes, user, text, _id, createdAt
         setAnchorEl(null)
     }
 
+
     return (
         <a onClick={handleClickTweet} href={`/home/tweet/${_id}`} className={classes.tweetWrapper}>
             <Paper className={classNames(classes.tweet, classes.tweetsHeader)} variant='outlined'>
                 <Avatar className={classes.tweetAvatar} alt={`Аватар пользователя ${user.fullName}`}
                         src={user.avatarUrl}/>
                 <div className={classes.tweetContent}>
-                    <Typography className={classes.tweetHeader}>
+                    <div className={classes.tweetHeader}>
                         <div>
                             <b>{user.fullName}</b>&nbsp;
                             <span className={classes.tweetUserName}>@{user.userName}</span>&nbsp;
@@ -60,7 +60,8 @@ export const Tweet: React.FC<TweetProps> = ({classes, user, text, _id, createdAt
                             <span className={classes.tweetUserName}>{formatDate(new Date(createdAt))}</span>
                         </div>
                         <div>
-                            <IconButton aria-label='more' aria-controls='long-menu' aria-haspopup='true' onClick={handleClick}>
+                            <IconButton aria-label='more' aria-controls='long-menu'
+                                        aria-haspopup='true' onClick={handleClick}>
                                 <MoreVertIcon/>
                             </IconButton>
                             <Menu
@@ -77,7 +78,7 @@ export const Tweet: React.FC<TweetProps> = ({classes, user, text, _id, createdAt
                                 </MenuItem>
                             </Menu>
                         </div>
-                    </Typography>
+                    </div>
                     <Typography variant='body1' gutterBottom>
                         {text}
                     </Typography>

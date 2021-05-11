@@ -1,6 +1,6 @@
 import {call, put, takeLatest} from 'redux-saga/effects';
 import {IUser} from "./contracts/state";
-import {IFetchSignInAction, UserActionsType} from "./contracts/actionTypes";
+import {IFetchSignInAction, IFetchSignUpAction, UserActionsType} from "./contracts/actionTypes";
 import {AuthApi} from "../../../services/api/authApi";
 import {setUserData, setUserLoadingStatus} from "./actionCreators";
 import {LoadingStatus} from "../../types";
@@ -15,7 +15,17 @@ export function* fetchSignInRequest({payload}: IFetchSignInAction) {
     }
 
 }
+export function* fetchSignUpRequest({payload}: IFetchSignUpAction) {
+    try {
+        yield call(AuthApi.signUp, payload)
+        yield put(setUserLoadingStatus(LoadingStatus.SUCCESS))
+    } catch (error) {
+        yield put(setUserLoadingStatus(LoadingStatus.ERROR))
+    }
+
+}
 
 export function* userSaga() {
     yield takeLatest(UserActionsType.FETCH_SIGN_IN, fetchSignInRequest)
+    yield takeLatest(UserActionsType.FETCH_SIGN_UP, fetchSignUpRequest)
 }

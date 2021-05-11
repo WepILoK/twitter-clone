@@ -22,4 +22,4 @@ export interface IFetchTagsAction extends Action<TagsActionsType> {
     type: TagsActionsType.FETCH_TAGS
 }
 
-export type TagsAction = ISetTagsAction | ISetTagsLoadingStatusAction | IFetchTagsAction
+export type TagsActions = ISetTagsAction | ISetTagsLoadingStatusAction | IFetchTagsAction

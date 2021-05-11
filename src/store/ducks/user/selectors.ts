@@ -6,5 +6,8 @@ export const selectUserState = (state: RootState): IUserState => state.user
 export const selectUserData = (state: RootState): IUserState['data'] =>
     selectUserState(state).data
 
+export const selectIsAuth = (state: RootState): boolean =>
+    !!selectUserState(state).data
+
 export const selectUserStatus = (state: RootState): IUserState['status'] =>
     selectUserState(state).status
