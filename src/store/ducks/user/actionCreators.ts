@@ -1,6 +1,6 @@
 import {IUserState} from "./contracts/state";
 import {
-    IFetchSignInAction, IFetchSignUpAction,
+    IFetchSignInAction, IFetchSignUpAction, IFetchUserDataAction,
     ISetUserDataAction,
     ISetUserLoadingStatusAction,
     UserActionsType
@@ -17,6 +17,10 @@ export const setUserData = (payload: IUserState['data']): ISetUserDataAction => 
 export const fetchSignIn = (payload: LoginFormProps): IFetchSignInAction => ({
     type: UserActionsType.FETCH_SIGN_IN,
     payload
+})
+
+export const fetchUserData = (): IFetchUserDataAction => ({
+    type: UserActionsType.FETCH_USER_DATA,
 })
 
 export const fetchSignUp = (payload: IRegisterFormProps): IFetchSignUpAction => ({

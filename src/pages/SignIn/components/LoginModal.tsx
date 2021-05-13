@@ -53,64 +53,55 @@ export const LoginModal: React.FC<LoginModalProps> = ({open, onClose}): ReactEle
     }, [loadingStatus])
 
     return (
-        <Notification>
-            {
-                callback => {
-                    openNotificationRef.current = callback
-                    return (
-                        <ModalBlock visible={open} onClose={onClose}
-                                    classes={classes} title='Войти в аккаунт'>
-                            <form onSubmit={handleSubmit(onSubmit)}>
-                                <FormControl className={classes.loginFormControl} component='fieldset' fullWidth>
-                                    <FormGroup arial-label='position' row>
-                                        <Controller
-                                            name="email"
-                                            control={control}
-                                            defaultValue=""
-                                            render={({field}) => <TextField
-                                                id='email'
-                                                label='Email Address'
-                                                type='email'
-                                                InputLabelProps={{
-                                                    shrink: true,
-                                                }}
-                                                variant='filled'
-                                                helperText={errors.email?.message}
-                                                error={!!errors.email}
-                                                fullWidth
-                                                className={classes.loginSideField}
-                                                autoFocus
-                                                {...field}/>}
-                                        />
-                                        <Controller
-                                            name="password"
-                                            control={control}
-                                            defaultValue=""
-                                            render={({field}) => <TextField
-                                                id='password'
-                                                label='Пароль'
-                                                type='password'
-                                                InputLabelProps={{
-                                                    shrink: true,
-                                                }}
-                                                variant='filled'
-                                                helperText={errors.password?.message}
-                                                error={!!errors.password}
-                                                className={classes.loginSideField}
-                                                fullWidth
-                                                {...field}/>}
-                                        />
-                                        <Button disabled={loadingStatus === LoadingStatus.LOADING} type='submit' variant='contained'
-                                                color='primary' fullWidth>
-                                            Войти
-                                        </Button>
-                                    </FormGroup>
-                                </FormControl>
-                            </form>
-                        </ModalBlock>
-                    )
-                }
-            }
-        </Notification>
+        <ModalBlock visible={open} onClose={onClose}
+                    classes={classes} title='Войти в аккаунт'>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <FormControl className={classes.loginFormControl} component='fieldset' fullWidth>
+                    <FormGroup arial-label='position' row>
+                        <Controller
+                            name="email"
+                            control={control}
+                            defaultValue=""
+                            render={({field}) => <TextField
+                                id='email'
+                                label='Email Address'
+                                type='email'
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                variant='filled'
+                                helperText={errors.email?.message}
+                                error={!!errors.email}
+                                fullWidth
+                                className={classes.loginSideField}
+                                autoFocus
+                                {...field}/>}
+                        />
+                        <Controller
+                            name="password"
+                            control={control}
+                            defaultValue=""
+                            render={({field}) => <TextField
+                                id='password'
+                                label='Пароль'
+                                type='password'
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                variant='filled'
+                                helperText={errors.password?.message}
+                                error={!!errors.password}
+                                className={classes.loginSideField}
+                                fullWidth
+                                {...field}/>}
+                        />
+                        <Button disabled={loadingStatus === LoadingStatus.LOADING} type='submit' variant='contained'
+                                color='primary' fullWidth>
+                            Войти
+                        </Button>
+                    </FormGroup>
+                </FormControl>
+            </form>
+        </ModalBlock>
     )
 }

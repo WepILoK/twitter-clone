@@ -53,7 +53,7 @@ export const RegisterModal: React.FC<IRegisterModalProps> = ({open, onClose}): R
 
     useEffect(() => {
         if (loadingStatus === LoadingStatus.SUCCESS) {
-            openNotificationRef.current('Регистрация успешна! Подтвердите свою регистрацина по указаной почте', 'success')
+            openNotificationRef.current('Регистрация успешна! Подтвердите свою регистрацина на указаной вами почте', 'success')
             onClose()
         } else if (loadingStatus === LoadingStatus.ERROR) {
             openNotificationRef.current('Неверно введены данные', 'error')
@@ -61,118 +61,109 @@ export const RegisterModal: React.FC<IRegisterModalProps> = ({open, onClose}): R
     }, [loadingStatus])
 
     return (
-        <Notification>
-            {
-                callback => {
-                    openNotificationRef.current = callback
-                    return (
-                        <ModalBlock visible={open} onClose={onClose}
-                                    classes={classes} title='Войти в аккаунт'>
-                            <form onSubmit={handleSubmit(onSubmit)}>
-                                <FormControl className={classes.loginFormControl} component='fieldset' fullWidth>
-                                    <FormGroup arial-label='position' row>
-                                        <Controller
-                                            name="fullName"
-                                            control={control}
-                                            defaultValue=""
-                                            render={({field}) => <TextField
-                                                className={classes.registerField}
-                                                autoFocus
-                                                id='fullName'
-                                                label='Введите полное имя'
-                                                type='text'
-                                                InputLabelProps={{
-                                                    shrink: true,
-                                                }}
-                                                variant='filled'
-                                                helperText={errors.fullName?.message}
-                                                error={!!errors.fullName}
-                                                fullWidth
-                                                {...field}/>}
-                                        />
-                                        <Controller
-                                            name="userName"
-                                            control={control}
-                                            defaultValue=""
-                                            render={({field}) => <TextField
-                                                className={classes.registerField}
-                                                id='userName'
-                                                label='Введите логин'
-                                                type='login'
-                                                InputLabelProps={{
-                                                    shrink: true,
-                                                }}
-                                                variant='filled'
-                                                helperText={errors.userName?.message}
-                                                error={!!errors.userName}
-                                                fullWidth
-                                                {...field}/>}
-                                        />
-                                        <Controller
-                                            name="email"
-                                            control={control}
-                                            defaultValue=""
-                                            render={({field}) => <TextField
-                                                className={classes.registerField}
-                                                id='email'
-                                                label='Email Address'
-                                                type='email'
-                                                InputLabelProps={{
-                                                    shrink: true,
-                                                }}
-                                                variant='filled'
-                                                helperText={errors.email?.message}
-                                                error={!!errors.email}
-                                                fullWidth
-                                                {...field}/>}
-                                        />
-                                        <Controller
-                                            name="password"
-                                            control={control}
-                                            defaultValue=""
-                                            render={({field}) => <TextField
-                                                className={classes.registerField}
-                                                id='password'
-                                                label='Пароль'
-                                                type='password'
-                                                InputLabelProps={{
-                                                    shrink: true,
-                                                }}
-                                                variant='filled'
-                                                helperText={errors.password?.message}
-                                                error={!!errors.password}
-                                                fullWidth
-                                                {...field}/>}
-                                        />
-                                        <Controller
-                                            name="password2"
-                                            control={control}
-                                            defaultValue=""
-                                            render={({field}) => <TextField
-                                                className={classes.registerField}
-                                                id='password2'
-                                                label='Повторите пароль'
-                                                type='password'
-                                                InputLabelProps={{
-                                                    shrink: true,
-                                                }}
-                                                variant='filled'
-                                                helperText={errors.password2?.message}
-                                                error={!!errors.password2}
-                                                fullWidth
-                                                {...field}/>}
-                                        />
-                                        <Button disabled={loadingStatus === LoadingStatus.LOADING} type='submit' variant='contained'
-                                                color='primary' fullWidth>
-                                            Регистрация
-                                        </Button>
-                                    </FormGroup>
-                                </FormControl>
-                            </form>
-                        </ModalBlock>
-                    )
-                }
-            }
-        </Notification>
+        <ModalBlock visible={open} onClose={onClose}
+                    classes={classes} title='Войти в аккаунт'>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <FormControl className={classes.loginFormControl} component='fieldset' fullWidth>
+                    <FormGroup arial-label='position' row>
+                        <Controller
+                            name="fullName"
+                            control={control}
+                            defaultValue=""
+                            render={({field}) => <TextField
+                                className={classes.registerField}
+                                autoFocus
+                                id='fullName'
+                                label='Введите полное имя'
+                                type='text'
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                variant='filled'
+                                helperText={errors.fullName?.message}
+                                error={!!errors.fullName}
+                                fullWidth
+                                {...field}/>}
+                        />
+                        <Controller
+                            name="userName"
+                            control={control}
+                            defaultValue=""
+                            render={({field}) => <TextField
+                                className={classes.registerField}
+                                id='userName'
+                                label='Введите логин'
+                                type='login'
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                variant='filled'
+                                helperText={errors.userName?.message}
+                                error={!!errors.userName}
+                                fullWidth
+                                {...field}/>}
+                        />
+                        <Controller
+                            name="email"
+                            control={control}
+                            defaultValue=""
+                            render={({field}) => <TextField
+                                className={classes.registerField}
+                                id='email'
+                                label='Email Address'
+                                type='email'
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                variant='filled'
+                                helperText={errors.email?.message}
+                                error={!!errors.email}
+                                fullWidth
+                                {...field}/>}
+                        />
+                        <Controller
+                            name="password"
+                            control={control}
+                            defaultValue=""
+                            render={({field}) => <TextField
+                                className={classes.registerField}
+                                id='password'
+                                label='Пароль'
+                                type='password'
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                variant='filled'
+                                helperText={errors.password?.message}
+                                error={!!errors.password}
+                                fullWidth
+                                {...field}/>}
+                        />
+                        <Controller
+                            name="password2"
+                            control={control}
+                            defaultValue=""
+                            render={({field}) => <TextField
+                                className={classes.registerField}
+                                id='password2'
+                                label='Повторите пароль'
+                                type='password'
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                variant='filled'
+                                helperText={errors.password2?.message}
+                                error={!!errors.password2}
+                                fullWidth
+                                {...field}/>}
+                        />
+                        <Button disabled={loadingStatus === LoadingStatus.LOADING} type='submit' variant='contained'
+                                color='primary' fullWidth>
+                            Регистрация
+                        </Button>
+                    </FormGroup>
+                </FormControl>
+            </form>
+        </ModalBlock>
     )
 }

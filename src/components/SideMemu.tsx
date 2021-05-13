@@ -41,7 +41,7 @@ export const SideMenu: React.FC<SideMenuProps> = ({classes}): ReactElement => {
             <li className={classes.sideMenuListItem}>
                 <Link to='/home'>
                     <div>
-                        <HomeIcon className={classes.sideMenuListItemIcon}/>
+                        <HomeIcon className={classes.sideMenuListItemIcon} color='primary'/>
                         <Hidden smDown>
                             <Typography className={classes.sideMenuListItemLabel} variant='h6'>Главная</Typography>
                         </Hidden>
@@ -113,5 +113,6 @@ export const SideMenu: React.FC<SideMenuProps> = ({classes}): ReactElement => {
                 </ModalBlock>
             </li>
         </ul>
+        // <UserSideProfile/>
     )
 }

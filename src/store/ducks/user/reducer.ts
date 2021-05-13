@@ -17,12 +17,6 @@ export const userReducer = produce((draft: Draft<IUserState>, action: UserAction
         case UserActionsType.SET_LOADING_STATUS:
             draft.status = action.payload
             break;
-        case UserActionsType.FETCH_SIGN_IN:
-            draft.status = LoadingStatus.LOADING
-            break;
-        case UserActionsType.FETCH_SIGN_UP:
-            draft.status = LoadingStatus.LOADING
-            break;
         default:
             break;
     }
