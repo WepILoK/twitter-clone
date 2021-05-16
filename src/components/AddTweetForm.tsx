@@ -4,7 +4,6 @@ import TextareaAutosize from "@material-ui/core/TextareaAutosize/TextareaAutosiz
 import classNames from "classnames";
 import {IconButton} from "@material-ui/core";
 import Alert from '@material-ui/lab/Alert';
-import ImageIcon from "@material-ui/icons/ImageOutlined";
 import EmojiIcon from "@material-ui/icons/SentimentSatisfiedOutlined";
 import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress";
 import Button from "@material-ui/core/Button/Button";
@@ -13,14 +12,23 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetchAddTweet} from "../store/ducks/tweets/actionCreators";
 import {selectAddForm} from "../store/ducks/tweets/selectors";
 import {AddFormStatus} from "../store/ducks/tweets/contracts/state";
+import {UploadImages} from "./UploadImages";
+import {uploadImage} from "../utils/uploadImage";
 
 interface AddTweetFormProps {
     classes: ReturnType<typeof useHomeStyles>
     maxRows?: number
 }
 
+export interface ImageObj {
+    blobUrl: string
+    file: File
+}
+
 export const AddTweetForm: React.FC<AddTweetFormProps> = ({classes, maxRows}): ReactElement => {
     const [text, setText] = useState<string>('')
+    const [images, setImages] = useState<ImageObj[]>([])
+
     const dispatch = useDispatch()
     const addFormState = useSelector(selectAddForm)
     const textLimitPercent = Math.round((text.length / 280) * 100)
@@ -33,6 +41,9 @@ export const AddTweetForm: React.FC<AddTweetFormProps> = ({classes, maxRows}): R
     }
 
     const handleClickAddTweet = (): void => {
+        let urls = []
+
+        uploadImage(images[0].file)
         dispatch(fetchAddTweet(text))
         setText('')
     }
@@ -53,9 +64,7 @@ export const AddTweetForm: React.FC<AddTweetFormProps> = ({classes, maxRows}): R
             </div>
             <div className={classes.addFormBottom}>
                 <div className={classNames(classes.tweetFooter, classes.addFormBottomActions)}>
-                    <IconButton color='primary'>
-                        <ImageIcon style={{fontSize: 26}}/>
-                    </IconButton>
+                    <UploadImages images={images} onChangeImages={setImages}/>
                     <IconButton color='primary'>
                         <EmojiIcon style={{fontSize: 26}}/>
                     </IconButton>

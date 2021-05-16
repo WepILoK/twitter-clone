@@ -213,6 +213,29 @@ export const useHomeStyles = makeStyles((theme: Theme) => ({
     addFormBottomRight: {
         display: 'flex',
         alignItems: 'center',
+    },
+    imagesList: {
+        display: 'flex',
+        alignItems: 'center',
+        marginTop: 20,
+        flexWrap: 'wrap'
+    },
+    imagesListItem: {
+        width: 50,
+        height: 50,
+        overflow: 'hidden',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        borderRadius: 6,
+        marginRight: 10,
+        marginBottom: 10,
+    },
+    imagesListItemRemove: {
+        position: 'relative',
+        top: -8,
+        right: -40,
+        padding: '0 !important',
+        backgroundColor: '#ff4d4d !important'
     }
 
 }))

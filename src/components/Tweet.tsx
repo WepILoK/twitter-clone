@@ -47,6 +47,7 @@ export const Tweet: React.FC<TweetProps> = ({classes, user, text, _id, createdAt
 
 
     return (
+
         <a onClick={handleClickTweet} href={`/home/tweet/${_id}`} className={classes.tweetWrapper}>
             <Paper className={classNames(classes.tweet, classes.tweetsHeader)} variant='outlined'>
                 <Avatar className={classes.tweetAvatar} alt={`Аватар пользователя ${user.fullName}`}

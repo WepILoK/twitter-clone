@@ -1,8 +1,5 @@
-import React, {ReactElement, useEffect} from "react";
+import React, {ReactElement} from "react";
 import {useHomeStyles} from "./Home/theme";
-import {useDispatch} from "react-redux";
-import {fetchTweets} from "../store/ducks/tweets/actionCreators";
-import {fetchTags} from "../store/ducks/tags/actionCreators";
 import {Container} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import {SideMenu} from "../components/SideMemu";

@@ -5,11 +5,10 @@ import {Route, Switch, useHistory} from 'react-router-dom';
 import {SignIn, useStylesSignIn} from "./pages/SignIn";
 import TwitterIcon from '@material-ui/icons/Twitter'
 import {Home} from "./pages/Home";
-import {fetchUserData, setUserData} from "./store/ducks/user/actionCreators";
+import {fetchUserData} from "./store/ducks/user/actionCreators";
 import {Layout} from "./pages/Layout";
 import {selectIsAuth, selectUserStatus} from "./store/ducks/user/selectors";
 import {LoadingStatus} from "./store/types";
-import CircularProgress from "@material-ui/core/CircularProgress";
 
 
 function App() {
