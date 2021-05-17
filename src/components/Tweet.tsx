@@ -1,17 +1,19 @@
 import React, {ReactElement, useState} from "react";
 import {useHistory} from 'react-router'
 import classNames from "classnames";
+
 import {Avatar, IconButton, Paper, Typography} from "@material-ui/core";
 import CommentIcon from "@material-ui/icons/ModeCommentOutlined";
 import RepostIcon from "@material-ui/icons/Repeat";
 import LikeIcon from "@material-ui/icons/FavoriteBorderOutlined";
 import ShareIcon from "@material-ui/icons/ReplyOutlined";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 
 import {useHomeStyles} from "../pages/Home/theme";
 import {formatDate} from "../utils/formatDate";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
+
 
 interface TweetProps {
     _id: string

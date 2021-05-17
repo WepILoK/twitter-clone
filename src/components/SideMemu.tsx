@@ -1,4 +1,6 @@
 import React, {ReactElement, useState} from "react";
+import {Link} from "react-router-dom";
+
 import TwitterIcon from "@material-ui/icons/Twitter";
 import SearchIcon from "@material-ui/icons/Search";
 import NotificationIcon from "@material-ui/icons/NotificationsNone";
@@ -16,7 +18,7 @@ import Typography from "@material-ui/core/Typography";
 import {useHomeStyles} from "../pages/Home/theme";
 import {AddTweetForm} from "./AddTweetForm";
 import {ModalBlock} from "./ModalBlock";
-import {Link} from "react-router-dom";
+
 
 interface SideMenuProps {
     classes: ReturnType<typeof useHomeStyles>

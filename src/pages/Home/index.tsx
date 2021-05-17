@@ -1,17 +1,14 @@
 import React, {ReactElement, useEffect} from "react";
-import {
-    Paper,
-    Typography,
-} from "@material-ui/core";
-import {Tweet} from "../../components/Tweet";
-
-import {AddTweetForm} from "../../components/AddTweetForm";
-import {useHomeStyles} from "./theme";
+import {Route} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {selectIsTweetsLoading, selectTweetsItems} from "../../store/ducks/tweets/selectors";
+
+import { Paper,Typography} from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-import {Route} from "react-router-dom";
+import {useHomeStyles} from "./theme";
+import {selectIsTweetsLoading, selectTweetsItems} from "../../store/ducks/tweets/selectors";
+import {AddTweetForm} from "../../components/AddTweetForm";
+import {Tweet} from "../../components/Tweet";
 import {BackButton} from "../../components/BackButton";
 import {FullTweet} from "./components/FullTweet";
 import {fetchTweets} from "../../store/ducks/tweets/actionCreators";

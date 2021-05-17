@@ -1,3 +1,6 @@
+import React, {ReactElement} from "react";
+import {useSelector} from "react-redux";
+
 import Paper from "@material-ui/core/Paper";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -8,10 +11,10 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import PersonAddIcon from "@material-ui/icons/PersonAddOutlined";
 import Divider from "@material-ui/core/Divider";
-import React, {ReactElement} from "react";
+
 import {useHomeStyles} from "../pages/Home/theme";
-import {useSelector} from "react-redux";
 import {selectUsersItems} from "../store/ducks/users/selectors";
+
 
 export const Users: React.FC = (): ReactElement => {
     const classes = useHomeStyles()

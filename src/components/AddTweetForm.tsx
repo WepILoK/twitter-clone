@@ -1,19 +1,20 @@
 import React, {ReactElement, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import classNames from "classnames";
+
 import Avatar from "@material-ui/core/Avatar/Avatar";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize/TextareaAutosize";
-import classNames from "classnames";
-import {IconButton} from "@material-ui/core";
 import Alert from '@material-ui/lab/Alert';
-import EmojiIcon from "@material-ui/icons/SentimentSatisfiedOutlined";
 import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress";
 import Button from "@material-ui/core/Button/Button";
+
 import {useHomeStyles} from "../pages/Home/theme";
-import {useDispatch, useSelector} from "react-redux";
-import {fetchAddTweet} from "../store/ducks/tweets/actionCreators";
+import {fetchAddTweet, setAddFormStatus} from "../store/ducks/tweets/actionCreators";
 import {selectAddForm} from "../store/ducks/tweets/selectors";
 import {AddFormStatus} from "../store/ducks/tweets/contracts/state";
 import {UploadImages} from "./UploadImages";
 import {uploadImage} from "../utils/uploadImage";
+
 
 interface AddTweetFormProps {
     classes: ReturnType<typeof useHomeStyles>
@@ -40,12 +41,17 @@ export const AddTweetForm: React.FC<AddTweetFormProps> = ({classes, maxRows}): R
         }
     }
 
-    const handleClickAddTweet = (): void => {
-        let urls = []
-
-        uploadImage(images[0].file)
-        dispatch(fetchAddTweet(text))
+    const handleClickAddTweet = async (): Promise<void> => {
+        let result = []
+        dispatch(setAddFormStatus(AddFormStatus.LOADING))
+        for (let i = 0; i < images.length; i++) {
+            const file = images[i].file
+            const {url} = await uploadImage(file)
+            result.push(url)
+        }
+        dispatch(fetchAddTweet({text, images: result}))
         setText('')
+        setImages([])
     }
 
     return (
@@ -65,9 +71,6 @@ export const AddTweetForm: React.FC<AddTweetFormProps> = ({classes, maxRows}): R
             <div className={classes.addFormBottom}>
                 <div className={classNames(classes.tweetFooter, classes.addFormBottomActions)}>
                     <UploadImages images={images} onChangeImages={setImages}/>
-                    <IconButton color='primary'>
-                        <EmojiIcon style={{fontSize: 26}}/>
-                    </IconButton>
                 </div>
                 <div className={classes.addFormBottomRight}>
                     {text && (

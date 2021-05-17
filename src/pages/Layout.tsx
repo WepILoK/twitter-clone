@@ -1,11 +1,13 @@
 import React, {ReactElement} from "react";
-import {useHomeStyles} from "./Home/theme";
+
 import {Container} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
-import {SideMenu} from "../components/SideMemu";
-import {SearchTextField} from "../components/SearchTextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from '@material-ui/icons/SearchOutlined';
+
+import {SideMenu} from "../components/SideMemu";
+import {SearchTextField} from "../components/SearchTextField";
+import {useHomeStyles} from "./Home/theme";
 import {Tags} from "../components/Tags";
 import {Users} from "../components/Users";
 

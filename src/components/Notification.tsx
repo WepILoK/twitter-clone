@@ -1,7 +1,9 @@
 import React, {ReactElement, useState} from 'react';
+
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from "@material-ui/lab/Alert";
 import {Color} from "@material-ui/lab/Alert/Alert";
+
 
 interface INotification {
     children: (callback: (text: string, type: Color) => void) => ReactElement

@@ -1,9 +1,10 @@
+import React, {ReactElement, useCallback, useEffect, useRef} from "react";
+
 import ImageIcon from "@material-ui/icons/ImageOutlined";
 import {IconButton} from "@material-ui/core";
-import React, {ReactElement, useCallback, useEffect, useRef, useState} from "react";
-import {useHomeStyles} from "../pages/Home/theme";
-import RemoveIcon from '@material-ui/icons/CloseOutlined';
+
 import {ImageObj} from "./AddTweetForm";
+import {ImageList} from "./ImageList";
 
 
 interface IUploadImagesProps {
@@ -13,7 +14,6 @@ interface IUploadImagesProps {
 
 export const UploadImages: React.FC<IUploadImagesProps> = ({images, onChangeImages}): ReactElement => {
     const inputRef = useRef<HTMLInputElement>(null)
-    const classes = useHomeStyles()
 
     const handleClickImage = () => {
         if (inputRef.current) {
@@ -52,18 +52,11 @@ export const UploadImages: React.FC<IUploadImagesProps> = ({images, onChangeImag
 
     return (
         <div>
-            <input ref={inputRef} type='file' id='upload-input' hidden/>
-            <div className={classes.imagesList}>
-                {images.map(obj =>
-                    <div key={obj.blobUrl} className={classes.imagesListItem} style={{backgroundImage: `url(${obj.blobUrl})`}}>
-                        <IconButton className={classes.imagesListItemRemove} onClick={(): void => removeImage(obj.blobUrl)} color='primary'>
-                            <RemoveIcon style={{fontSize: 15}}/>
-                        </IconButton>
-                    </div>)}
-            </div>
+            <ImageList images={images} removeImage={removeImage}/>
             <IconButton onClick={handleClickImage} color='primary'>
                 <ImageIcon style={{fontSize: 26}}/>
             </IconButton>
+            <input ref={inputRef} type='file' id='upload-input' hidden/>
         </div>
     )
 }

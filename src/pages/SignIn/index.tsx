@@ -1,9 +1,11 @@
 import React, {ReactElement, useState} from "react";
+
 import {Button, makeStyles, Typography} from "@material-ui/core";
 import TwitterIcon from '@material-ui/icons/Twitter';
 import SearchIcon from '@material-ui/icons/Search';
 import PeopleIcon from '@material-ui/icons/PeopleOutline';
 import MessageIcon from '@material-ui/icons/ModeCommentOutlined';
+
 import {LoginModal} from "./components/LoginModal";
 import {RegisterModal} from "./components/RegisterModal";
 

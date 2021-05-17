@@ -19,7 +19,7 @@ export const addTweet = (payload: Tweet): IAddTweetAction => ({
     payload
 })
 
-export const fetchAddTweet = (payload: string): IFetchAddTweetAction => ({
+export const fetchAddTweet = (payload: {text: string, images: string[]}): IFetchAddTweetAction => ({
     type: TweetsActionsType.FETCH_ADD_TWEET,
     payload
 })

@@ -1,16 +1,17 @@
 import React, {ReactElement, useEffect, useRef} from "react";
+import {Controller, useForm} from "react-hook-form";
+import {yupResolver} from '@hookform/resolvers/yup';
+import {useDispatch, useSelector} from "react-redux";
+import * as yup from "yup"
+
 import FormControl from "@material-ui/core/FormControl";
 import FormGroup from "@material-ui/core/FormGroup";
 import TextField from "@material-ui/core/TextField";
 import {Button} from "@material-ui/core";
+import {Color} from "@material-ui/lab/Alert/Alert";
+
 import {ModalBlock} from "../../../components/ModalBlock";
 import {useStylesSignIn} from "../index";
-import {Controller, useForm} from "react-hook-form";
-import {yupResolver} from '@hookform/resolvers/yup';
-import * as yup from "yup"
-import {Notification} from "../../../components/Notification";
-import {Color} from "@material-ui/lab/Alert/Alert";
-import {useDispatch, useSelector} from "react-redux";
 import {fetchSignUp} from "../../../store/ducks/user/actionCreators";
 import {selectUserStatus} from "../../../store/ducks/user/selectors";
 import {LoadingStatus} from "../../../store/types";

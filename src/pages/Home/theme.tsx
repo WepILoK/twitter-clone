@@ -223,7 +223,6 @@ export const useHomeStyles = makeStyles((theme: Theme) => ({
     imagesListItem: {
         width: 50,
         height: 50,
-        overflow: 'hidden',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         borderRadius: 6,
